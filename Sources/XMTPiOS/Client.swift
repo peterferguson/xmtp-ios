@@ -248,7 +248,7 @@ public final class Client {
 					do {
 						let signedData = try await signingKey.sign(message: signatureRequest.signatureText())
 						if signingKey.isSmartContractWallet {
-							try await signatureRequest.addScwSignature(signatureBytes: signedData.rawData, address: signingKey.address, chainId: signingKey.chainId, blockNumber: signingKey.blockNumber)
+							try await signatureRequest.addScwSignature(signatureBytes: signedData.rawData.dropLast(), address: signingKey.address, chainId: signingKey.chainId, blockNumber: signingKey.blockNumber)
 						} else {
 							try await signatureRequest.addEcdsaSignature(signatureBytes: signedData.rawData)
 						}
