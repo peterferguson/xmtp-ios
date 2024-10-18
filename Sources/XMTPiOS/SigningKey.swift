@@ -35,6 +35,9 @@ public protocol SigningKey {
 	/// Pass a personal Ethereum signed message string text to be signed, returning
 	/// a secp256k1 compact recoverable signature. You can use ``Signature.ethPersonalMessage`` to generate this text.
 	func sign(message: String) async throws -> Signature
+	
+	/// Pass a personal Ethereum signed message string text to be signed, return bytes to be verified
+	func signSCW(message: String) async throws -> Data
 }
 
 extension SigningKey {
@@ -70,5 +73,17 @@ extension SigningKey {
 		authorized.signature = signature
 
 		return AuthorizedIdentity(address: address, authorized: authorized, identity: identity)
+	}
+	
+	public func sign(_ data: Data) async throws -> Signature {
+		throw NSError(domain: "NotImplemented", code: 1, userInfo: [NSLocalizedDescriptionKey: "sign(Data) not implemented."])
+	}
+
+	public func sign(message: String) async throws -> Signature {
+		throw NSError(domain: "NotImplemented", code: 1, userInfo: [NSLocalizedDescriptionKey: "sign(String) not implemented."])
+	}
+
+	public func signSCW(message: String) async throws -> Data {
+		throw NSError(domain: "NotImplemented", code: 1, userInfo: [NSLocalizedDescriptionKey: "signSCW(String) not implemented."])
 	}
 }
